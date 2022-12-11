@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import './index.css';
+import RootPets from './roots/RootPets';
 
 function App() {
+  const [dogFact, setDogFact] = useState([])
+  const [catFact, setCatFact] = useState([])
+  const [pets, setPets] = useState([])
+
+  useEffect(() => {
+    axios.get("https://dogapi.dog/api/v1/facts?number=5").then((res) => setDogFact(res.data.facts))
+    axios.get("https://meowfacts.herokuapp.com/?count=5").then((res) => setCatFact(res.data.data))
+  }, [])
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/pets/").then((res) => setPets(res.data))
+}, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <RootPets dogFact={dogFact} catFact={catFact} pets={pets} />
+    </>
   );
 }
 
