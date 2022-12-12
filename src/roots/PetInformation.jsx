@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -7,7 +8,6 @@ function PetInformation({ activeItem, onEditName, onEditWeight, onEditHeight, on
             <div id="petAvatar">
                 {activeItem ? <img
                     className="petImg"
-                    alt="dog"
                     key={activeItem.id}
                     src={activeItem.avatar || null}
                 /> : "nothing"}
@@ -22,8 +22,10 @@ function PetInformation({ activeItem, onEditName, onEditWeight, onEditHeight, on
                             <p className="petName">Hi, my name is {activeItem.name}</p>
                             <form className="formEdit"><button onClick={() => onEditName(activeItem)}>Edit name</button></form>
                         </>
-                    ) : (
-                        <i>No Name</i>
+                    ) : (<>
+                        <p className="petName">No name</p>
+                        <form className="formEdit"><button onClick={() => onEditName(activeItem)}>Edit name</button></form>
+                    </>
                     )}{" "}
                 </div>
                 <div className="petsInfoItem">
@@ -33,7 +35,10 @@ function PetInformation({ activeItem, onEditName, onEditWeight, onEditHeight, on
                             <form className="formEdit"><button onClick={() => onEditWeight(activeItem)}>Edit weight</button></form>
                         </>
                     ) : (
-                        <i>No Name</i>
+                        <>
+                            <p className="petName">No weight</p>
+                            <form className="formEdit"><button onClick={() => onEditWeight(activeItem)}>Edit weight</button></form>
+                        </>
                     )}{" "}
                 </div>
                 <div className="petsInfoItem">
@@ -43,7 +48,10 @@ function PetInformation({ activeItem, onEditName, onEditWeight, onEditHeight, on
                             <form className="formEdit"><button onClick={() => onEditHeight(activeItem)}>Edit height</button></form>
                         </>
                     ) : (
-                        <i>No Name</i>
+                        <>
+                            <p className="petName">No height</p>
+                            <form className="formEdit"><button onClick={() => onEditHeight(activeItem)}>Edit height</button></form>
+                        </>
                     )}{" "}
                 </div>
                 <div >
@@ -53,7 +61,10 @@ function PetInformation({ activeItem, onEditName, onEditWeight, onEditHeight, on
                             <form className="formEditDescription"><button onClick={() => onEditDescription(activeItem)}>Edit Description</button></form>
                         </>
                     ) : (
-                        <i>No Name</i>
+                        <>
+                            <p className="petName">No description</p>
+                            <form className="formEditDescription"><button onClick={() => onEditDescription(activeItem)}>Edit Description</button></form>
+                        </>
                     )}{" "}
                 </div>
             </div>

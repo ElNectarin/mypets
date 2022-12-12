@@ -8,11 +8,8 @@
       "weight": "10kg",
       "growth": "50cm",
       "usefulInfo": "I like ice cream, running after a ball and chasing the neighbor's cats",
-      "dateVaccination": "20221010"
-    },
-    {
-      "name": "dasd",
-      "id": 2
+      "dateVaccination": "20221010",
+      "photoVaccination": "https://vezemkota.ru/wp-content/uploads/2022/01/Veterinary-Certificate-Form-5a.jpg"
     }
   ]
 }

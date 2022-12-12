@@ -9,7 +9,6 @@ export const rootLoader = async () => {
     return { pets }
 }
 
-
 const RootPets = ({ dogFact, catFact }) => {
     // eslint-disable-next-line no-unused-vars
     const [inputValue, setInputValue] = useState('')
@@ -36,12 +35,12 @@ const RootPets = ({ dogFact, catFact }) => {
         return { pets }
     }
 
-    const onRemoveTask = (id) => {
-        if (window.confirm('Вы действительно хотите удалить задачу?')) {
+    const onRemovePet = (id) => {
+        if (window.confirm('Do you want delete this pet?')) {
             const newLists = pets.filter(item => item.id !== id)
             setPetsList(newLists)
             axios.delete('http://localhost:5000/pets/' + id).catch(() => {
-                alert('Не удалось удалить задачу')
+                alert('Cannot delete pet')
             })
         }
     }
@@ -79,7 +78,7 @@ const RootPets = ({ dogFact, catFact }) => {
                                             to={`pets/${pet.id}`}>
                                             {pet.name}
                                         </Link>
-                                        <form><button className='removeButton' onClick={() => onRemoveTask(pet.id)}>X</button></form>
+                                        <form><button className='removeButton' onClick={() => onRemovePet(pet.id)}>X</button></form>
                                     </li>
                                 ))
                             }

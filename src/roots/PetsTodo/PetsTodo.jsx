@@ -23,7 +23,7 @@ const PetsTodo = () => {
 
     return (
         <div className="App">
-            <h1>Todo</h1>
+            <h1 className="peth1Todo">Todo</h1>
             <PetsTodoInput todo={todo} setTodo={setTodo} addTodo={addTodo} />
             <PetsTodoList list={todos} remove={deleteTodo} />
         </div>

@@ -15,7 +15,7 @@ function App() {
 
   useEffect(() => {
     axios.get("http://localhost:5000/pets/").then((res) => setPets(res.data))
-}, [])
+  }, [])
 
   return (
     <>
