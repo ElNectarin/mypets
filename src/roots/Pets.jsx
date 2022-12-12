@@ -1,16 +1,10 @@
-import { Form, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import "../index.css"
 import PetsTodo from "./PetsTodo/PetsTodo";
-
-// export const petLoader = async ({ params }) => {
-//     const results = await fetch(`http://localhost:5000/pets/`)
-//     const pet = await results.json()
-//     return pet
-// }
-
-
+import HealthPets from "./HealthPets";
+import PetInformation from "./PetInformation";
 
 export default function Pets() {
     const [activeItem, setActiveItem] = useState(null)
@@ -26,85 +20,74 @@ export default function Pets() {
         if (pets) {
             const pet = pets.find(pet => pet.id === Number(params.petId));
             setActiveItem(pet)
-            console.log(pet)
         }
     }, [params.petId, pets]);
+
+    const onEditName = (petObj) => {
+        const newPetName = window.prompt("The pet's name", petObj.name)
+
+        if (!newPetName) {
+            return
+        }
+        axios.patch('http://localhost:5000/pets/' + petObj.id, {
+            name: newPetName
+        })
+            .catch(() => {
+                alert('Не удалось обновить задачу');
+            })
+    }
+
+    const onEditWeight = (petObj) => {
+        const newPetWeight = window.prompt("The pet's weight", petObj.weight)
+
+        if (!newPetWeight) {
+            return
+        }
+        axios.patch('http://localhost:5000/pets/' + petObj.id, {
+            weight: newPetWeight
+        })
+            .catch(() => {
+                alert('Не удалось обновить задачу');
+            })
+    }
+
+    const onEditHeight = (petObj) => {
+        const newPetHeight = window.prompt("The pet's height", petObj.height)
+        if (!newPetHeight) {
+            return
+        }
+        axios.patch('http://localhost:5000/pets/' + petObj.id, {
+            height: newPetHeight
+        })
+            .catch(() => {
+                alert('Не удалось обновить задачу');
+            })
+    }
+    const onEditDescription = (petObj) => {
+        const newPetDescription = window.prompt("The pet's usefulInfo", petObj.usefulInfo)
+
+        if (!newPetDescription) {
+            return
+        }
+        axios.patch('http://localhost:5000/pets/' + petObj.id, {
+            usefulInfo: newPetDescription
+        })
+            .catch(() => {
+                alert('Не удалось обновить задачу');
+            })
+    }
+
 
     return (
         <div className="container">
             <div className="petsContainer">
-                <div className="petInformation">
-                    <div id="petAvatar">
-                        {activeItem ? <img
-                            className="petImg"
-                            alt="dog"
-                            key={activeItem.id}
-                            src={activeItem.avatar || null}
-                        /> : "nothing"}
-                        <div className="changeButton">
-                            <Form action="edit">
-                                <button className="editButton" type="submit">Edit</button>
-                            </Form>
-                            <Form
-                                method="post"
-                                action="destroy"
-                                onSubmit={(event) => {
-                                    if (
-                                        !window.confirm(
-                                            "Please confirm you want to delete this record."
-                                        )
-                                    ) {
-                                        event.preventDefault();
-                                    }
-                                }}
-                            >
-                                <button className="destroyButton" type="submit">Delete</button>
-                            </Form>
-                        </div>
-                    </div>
-                    <div className="petDescription">
-                        <div>
-                            {activeItem && activeItem.name ? (
-                                <>
-                                    <p className="petName">Hi, my name is {activeItem.name}</p>
-                                </>
-                            ) : (
-                                <i>No Name</i>
-                            )}{" "}
-                        </div>
-                        <div>
-                            {activeItem && activeItem.weight ? (
-                                <>
-                                    <p className="petName">My weight is {activeItem.weight}</p>
-                                </>
-                            ) : (
-                                <i>No Name</i>
-                            )}{" "}
-                        </div>
-                        <div>
-                            {activeItem && activeItem.growth ? (
-                                <>
-                                    <p className="petName">My height is {activeItem.growth}</p>
-                                </>
-                            ) : (
-                                <i>No Name</i>
-                            )}{" "}
-                        </div>
-                        <div>
-                            {activeItem && activeItem.usefulInfo ? (
-                                <>
-                                    <p className="petName">{activeItem.usefulInfo}</p>
-                                </>
-                            ) : (
-                                <i>No Name</i>
-                            )}{" "}
-                        </div>
-                    </div>
-                </div>
-                <div className="healthPets">
-                    <h2>My pet health</h2>
-                    <p>Hello</p>
-                    </div>
+                <PetInformation activeItem={activeItem}
+                    onEditName={onEditName}
+                    onEditWeight={onEditWeight}
+                    onEditHeight={onEditHeight}
+                    onEditDescription={onEditDescription}
+                />
+                <HealthPets activeItem={activeItem} />
             </div>
             <PetsTodo />
         </div>

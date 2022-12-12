@@ -1,3 +1,5 @@
+import axios from 'axios'
+import { useState } from 'react'
 import { Link, Outlet, useLoaderData } from 'react-router-dom'
 import mypetspicture from './pictures/672675.png'
 
@@ -8,9 +10,41 @@ export const rootLoader = async () => {
 }
 
 
-
 const RootPets = ({ dogFact, catFact }) => {
+    // eslint-disable-next-line no-unused-vars
+    const [inputValue, setInputValue] = useState('')
+    const [petsList, setPetsList] = useState([])
     const { pets } = useLoaderData()
+
+    const onAddList = (obj) => {
+        const newList = [...petsList, obj]
+        setPetsList(newList)
+    }
+
+    const addPets = () => {
+        const inputPet = prompt("Enter pet name", inputValue)
+        if (!inputPet) {
+            alert("Write pet name")
+            return
+        }
+        axios.post("http://localhost:5000/pets/", {
+            name: inputPet
+        }).then(res => {
+            const petsObj = { ...res.data }
+            onAddList(petsObj)
+        })
+        return { pets }
+    }
+
+    const onRemoveTask = (id) => {
+        if (window.confirm('Вы действительно хотите удалить задачу?')) {
+            const newLists = pets.filter(item => item.id !== id)
+            setPetsList(newLists)
+            axios.delete('http://localhost:5000/pets/' + id).catch(() => {
+                alert('Не удалось удалить задачу')
+            })
+        }
+    }
 
     return (
         <>
@@ -20,39 +54,32 @@ const RootPets = ({ dogFact, catFact }) => {
                     <img src={mypetspicture} alt="mypets" className='imgpets' />
                 </div>
                 <div>
-                    <form id="search-form" role="search">
-                        <input
-                            id="q"
-                            aria-label="Search contacts"
-                            placeholder="Search"
-                            type="search"
-                            name="q"
-                        />
-                        <div
-                            id="search-spinner"
-                            aria-hidden
-                            hidden={true}
-                        />
-                        <div
-                            className="sr-only"
-                            aria-live="polite"
-                        ></div>
+                    <div
+                        id="search-spinner"
+                        aria-hidden
+                        hidden={true}
+                    />
+                    <div
+                        className="sr-only"
+                        aria-live="polite"
+                    ></div>
+                    <form>
+                        <button onClick={addPets} className="submitButton" type="submit">New pet</button>
                     </form>
-                    <form method="post">
-                        <button type="submit">New</button>
-                    </form>
+
                 </div>
                 <nav>
                     {pets.length ? (
                         <ul>
                             {
                                 pets.map((pet) => (
-                                    <li key={pet.id}>
+                                    <li className='liPets' key={pet.id}>
                                         <Link
                                             key={pet.id}
                                             to={`pets/${pet.id}`}>
                                             {pet.name}
                                         </Link>
+                                        <form><button className='removeButton' onClick={() => onRemoveTask(pet.id)}>X</button></form>
                                     </li>
                                 ))
                             }

@@ -24,7 +24,6 @@ html,
 body {
   height: 100%;
   margin: 0;
-  line-height: 1.5;
   color: #121212;
 }
 textarea,
@@ -210,7 +209,7 @@ i {
 }
 
 #sidebar li {
-  margin: 0.25rem 0;
+  margin: 1.25rem 0;
 }
 
 #sidebar nav a {
@@ -218,6 +217,7 @@ i {
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
+  width: 100%;
 
   white-space: pre;
   padding: 0.5rem;
@@ -433,12 +433,15 @@ i {
   flex-direction: column;
 }
 
-.editButton {
-  width: 70px;
-}
-
-.destroyButton {
-  width: 70px;
+.removeButton {
+  font-size: 1rem;
+  font-family: inherit;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  background-color: white;
+  line-height: 1.5;
+  margin: 0;
 }
 
 .healthPets{
@@ -491,6 +494,9 @@ i {
   color: #fe6a6a;
 }
 
+.lastVaccination {
+  font-size: 20px;
+}
 
 .empty {
   font-size: 20px;
@@ -498,3 +504,43 @@ i {
   color: #cf972e;
   letter-spacing: 0.2rem;
 }
+
+.submitButton {
+  width: 300px;
+}
+
+.liPets {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 9px;
+  margin-top: 3px;
+}
+
+.goBackButton {
+  width: 100%;
+}
+
+.linkBack {
+  text-decoration: none;
+}
+
+.linkBack:active:hover {
+  text-decoration: none;
+}
+
+.petsInfoItem {
+  display: flex;
+  justify-content: space-between;
+  height: 45px;
+}
+
+.formEdit {
+  padding-top: 18px;
+}
+.formEditDescription {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+}
+
